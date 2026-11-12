@@ -19,16 +19,16 @@ jobs:
           terraform_version: "1.14.4"
 
       - name: Check formatting
-        run: terraform -chdir=simulation fmt -check -recursive
+        run: terraform -chdir=validation fmt -check -recursive
 
       - name: Initialize
-        run: terraform -chdir=simulation init -backend=false
+        run: terraform -chdir=validation init -backend=false
 
       - name: Validate
-        run: terraform -chdir=simulation validate
+        run: terraform -chdir=validation validate
 
       - name: Verify architecture
-        run: terraform -chdir=simulation plan -input=false
+        run: terraform -chdir=validation plan -input=false
 
       - name: Run architecture and security tests
-        run: python3 -m unittest discover -s tests/simulation -v
+        run: python3 -m unittest discover -s tests/validation -v

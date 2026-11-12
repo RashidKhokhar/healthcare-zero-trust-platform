@@ -65,11 +65,11 @@ The implementation is aligned with common healthcare and zero-trust expectations
 ├── references/                 # Reference architectures and material
 ├── scripts/                    # Operational and automation scripts
 ├── security/                   # Security workflows and checks
-├── simulation/                 # Safe Terraform simulation environment
+├── validation/                 # Safe Terraform validation environment
 ├── terraform/
 │   ├── live/landing-zone/      # Landing zone deployment entry points
 │   └── modules/               # Reusable Terraform modules
-├── tests/simulation/           # Architecture and security validation tests
+├── tests/validation/           # Architecture and security validation tests
 ├── .gitignore
 ├── README.md
 └── ...
@@ -100,7 +100,7 @@ The EKS platform layer includes:
 
 ### Simulation and validation
 
-The repo includes a simulation folder that validates architecture and security logic without creating real cloud resources. Automated tests cover:
+The repo includes a validation environment that checks architecture and security logic without creating real cloud resources. Automated tests cover:
 
 - no real AWS resources created during simulation
 - successful Terraform plan execution
@@ -127,15 +127,15 @@ Representative results include:
 ## Quick start
 
 1. Install Terraform and Python.
-2. Review the simulation configuration in `simulation/`.
+2. Review the validation configuration in `validation/`.
 3. Run security and validation checks:
 
 ```bash
 terraform fmt -recursive terraform
-terraform -chdir=simulation init -backend=false
-terraform -chdir=simulation validate
-terraform -chdir=simulation plan -input=false
-python3 -m unittest discover -s tests/simulation -v
+terraform -chdir=validation init -backend=false
+terraform -chdir=validation validate
+terraform -chdir=validation plan -input=false
+python3 -m unittest discover -s tests/validation -v
 checkov -d terraform --framework terraform --compact --quiet
 ```
 

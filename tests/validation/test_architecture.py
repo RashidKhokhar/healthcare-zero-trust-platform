@@ -7,7 +7,7 @@ class TestHealthcareArchitecture(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         result = subprocess.run(
-            ["terraform", "-chdir=simulation", "plan", "-json", "-input=false"],
+            ["terraform", "-chdir=validation", "plan", "-json", "-input=false"],
             capture_output=True,
             text=True,
             check=True

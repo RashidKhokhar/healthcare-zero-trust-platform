@@ -8,13 +8,13 @@ class TestSecurityPolicies(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         result = subprocess.run(
-            ["terraform", "-chdir=simulation", "plan", "-out=/tmp/healthcare-simulation.tfplan"],
+            ["terraform", "-chdir=validation", "plan", "-out=/tmp/healthcare-validation.tfplan"],
             capture_output=True,
             text=True,
             check=True,
         )
         result = subprocess.run(
-            ["terraform", "show", "-json", "/tmp/healthcare-simulation.tfplan"],
+            ["terraform", "show", "-json", "/tmp/healthcare-validation.tfplan"],
             capture_output=True,
             text=True,
             check=True,
