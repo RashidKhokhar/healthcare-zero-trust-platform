@@ -1,0 +1,34 @@
+name: Healthcare Terraform Validation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.14.4"
+
+      - name: Check formatting
+        run: terraform -chdir=simulation fmt -check -recursive
+
+      - name: Initialize
+        run: terraform -chdir=simulation init -backend=false
+
+      - name: Validate
+        run: terraform -chdir=simulation validate
+
+      - name: Verify architecture
+        run: terraform -chdir=simulation plan -input=false
+
+      - name: Run architecture and security tests
+        run: python3 -m unittest discover -s tests/simulation -v
