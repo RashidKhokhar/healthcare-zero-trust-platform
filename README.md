@@ -98,11 +98,11 @@ The EKS platform layer includes:
 - CloudTrail and Config support
 - Identity and access controls for cluster operations
 
-### Simulation and validation
+### Validation workflow
 
 The repo includes a validation environment that checks architecture and security logic without creating real cloud resources. Automated tests cover:
 
-- no real AWS resources created during simulation
+- no real AWS resources created during validation
 - successful Terraform plan execution
 - encryption requirements
 - audit logging
@@ -115,14 +115,14 @@ The repo includes a validation environment that checks architecture and security
 The project was validated with:
 
 - Terraform formatting and validation
-- Terraform plan validation in simulation mode
+- Terraform plan validation in validation mode
 - Checkov security scanning
-- Python unit tests for the simulation layer
+- Python unit tests for the validation layer
 
 Representative results include:
 
 - Checkov: 429 passed, 0 failed, 0 skipped
-- Simulation tests: 7 passed
+- Validation tests: 7 passed
 
 ## Quick start
 
