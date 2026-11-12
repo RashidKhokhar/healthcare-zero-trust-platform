@@ -13,6 +13,37 @@ This project provisions a secure AWS landing zone for healthcare workloads with:
 - GitHub OIDC-based CI/CD trust model
 - Infrastructure-as-code validation and policy checks
 
+## Zero-trust architecture overview
+
+```mermaid
+flowchart TD
+    U[Healthcare Users / Admins] --> I[Identity & Access
+    SSO / MFA / RBAC]
+    I --> P[Private Network Access
+    VPC / Security Groups / NACLs]
+    P --> A[Org / Security / Networking / Logging / Workload Accounts]
+
+    A --> E[Private EKS Cluster
+    Healthcare workloads]
+    E --> D[Encrypted Data Stores
+    RDS / S3 / KMS]
+
+    A --> T[CloudTrail + Config + GuardDuty]
+    A --> L[Centralized Logging & Audit Trail]
+    T --> S[Security Operations / Compliance Review]
+    L --> S
+
+    C[GitHub OIDC / CI-CD] --> A
+    K[KMS Keys] --> D
+    K --> L
+
+    classDef secure fill:#d9f2e6,stroke:#2e7d32,color:#0b3d1a,stroke-width:1.5px;
+    classDef core fill:#e8f0fe,stroke:#1a73e8,color:#102a43,stroke-width:1.5px;
+    classDef alert fill:#fff3cd,stroke:#b8860b,color:#4a3b00,stroke-width:1.5px;
+
+    class U,I,P,A,E,D,T,L,S,C,K secure;
+```
+
 ## Security principles
 
 The implementation is aligned with common healthcare and zero-trust expectations:
